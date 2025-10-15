@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {FormsModule} from "@angular/forms";
 import {ApiClientService} from "./service/api-client.service";
@@ -24,18 +24,23 @@ export class AppComponent {
   myResultDistance = 0
 
   sendMyGuess() {
-    this.myResultDistance = 45
+    this.myResultDistance = 0;
+    console.log(this.myGuess);
     this.apiClient.getPokemonValue({
       value: this.myGuess
     }).pipe(
       catchError(err => {
         this.myResultDistance = 0
         this.hasError = true;
+        console.log("error");
         return EMPTY
       })
     ).subscribe(result=> {
       this.hasError = false;
-      this.myResultDistance = result.value
+      this.myResultDistance = result.result * 100,
+      console.log("Result :")
+      console.log(result);
+      console.log(this.myResultDistance);
     });
   }
 }

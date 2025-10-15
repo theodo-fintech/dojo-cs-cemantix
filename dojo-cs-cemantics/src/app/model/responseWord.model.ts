@@ -1,3 +1,3 @@
 export interface ResponseWord {
-  value: number;
+  result: number;
 }
